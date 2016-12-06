@@ -7,7 +7,7 @@ class SearchifyPage_Controller extends Page_Controller {
     public function index(SS_HTTPRequest $r)
     {
         $results = Searchify::inst()->search($r->requestVar('q'));
-        $resultStack = [];
+        $resultStack = array();
 
         foreach ($results->results as $result) {
             $page = SiteTree::get()->byID($result->docid);
@@ -23,12 +23,12 @@ class SearchifyPage_Controller extends Page_Controller {
 
             $resultStack[] = $this->renderWith(
                 "SearchifyResult",
-                [
+                array(
                     'Title' => $page->Title,
                     'SearchLink' => $page->Link(),
                     'Snippet' => $snippet_summary,
                     'LastEdited' => $page->LastEdited
-                ]
+                )
             );
         }
 
@@ -45,11 +45,11 @@ class SearchifyPage_Controller extends Page_Controller {
             'Title' => 'Search Results',
             'Content'=> $this->renderWith(
                 "SearchifyResultsHolder",
-                [
+                array(
                     "QueryString" => Convert::xml2raw($r->requestVar('q')),
                     "Matches" => $matches,
                     "Results" => $results
-                ]
+                )
             )
         ]);
     }
