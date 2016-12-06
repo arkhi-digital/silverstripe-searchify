@@ -61,17 +61,17 @@ class Searchify extends Object
                         "Searchify.IndexNonExistent",
                         "The index {key} does not exist",
                         "The error message shown when an index does not exist, and configuration options disallow the creation of it",
-                        [
+                        array(
                             'key' => $key
-                        ]
+                        )
                     ),
                     E_USER_ERROR
                 );
             }
 
-            $createOptions = [
+            $createOptions = array(
                 'public_search' => true
-            ];
+            );
 
             $this->index = $this->client->create_index($key, $createOptions);
 
@@ -117,11 +117,11 @@ class Searchify extends Object
             return false;
         }
 
-        $docDetails = [
+        $docDetails = array(
             "text" => $this->discover($record),
             "title" => $record->Title,
             "timestamp" => strtotime($record->LastEdited)
-        ];
+        );
 
         try {
             $result = $this->index->add_document($record->ID, $docDetails);
@@ -169,21 +169,21 @@ class Searchify extends Object
             return false;
         }
 
-        $docs = [];
+        $docs = array();
 
         foreach ($records as $record) {
             if ($this->isBlacklisted($record->ClassName)) {
                 continue;
             }
 
-            $docs[] = [
+            $docs[] = array(
                 "docid" => $record->ID,
-                "fields" => [
+                "fields" => array(
                     "text" => $this->discover($record),
                     "title" => $record->Title,
                     "timestamp" => strtotime($record->LastEdited)
-                ]
-            ];
+                )
+            );
         }
 
         $result = $this->index->add_documents($docs);
@@ -281,16 +281,16 @@ class Searchify extends Object
     public function search($query, array $snippetFields = null, array $fetchFields = null)
     {
         if (!$snippetFields) {
-            $snippetFields = [
+            $snippetFields = array(
                 'text'
-            ];
+            );
         }
 
         if (!$fetchFields) {
-            $fetchFields = [
+            $fetchFields = array(
                 'title',
                 'timestamp'
-            ];
+            );
         }
 
         return $this->index->search(
@@ -308,6 +308,10 @@ class Searchify extends Object
      */
     public function getApiUrl()
     {
+        if (getenv('SEARCHIFY_API_URL')) {
+            define('SEARCHIFY_API_URL', getenv('SEARCHIFY_API_URL'));
+        }
+
         if (!defined('SEARCHIFY_API_URL')) {
             user_error(
                 _t(
@@ -355,9 +359,9 @@ class Searchify extends Object
     {
         $config = \Config::inst()->get($record->ClassName, 'db');
 
-        $content = [
+        $content = array(
             $record->Content
-        ];
+        );
 
         if (!$config || !$this->config()->discover) {
             return Convert::html2raw($content[0]);
@@ -418,7 +422,7 @@ class Searchify extends Object
      */
     public function isPublishable($record)
     {
-        if (in_array($record->CanViewType, ["LoggedInUsers", "OnlyTheseUsers"])) {
+        if (in_array($record->CanViewType, array("LoggedInUsers", "OnlyTheseUsers"))) {
             return false;
         }
 
