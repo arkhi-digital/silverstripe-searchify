@@ -1,0 +1,14 @@
+---
+Name: searchify
+After:
+  - 'framework/*'
+  - 'cms/*'
+---
+
+Searchify:
+  settings:
+    index: MyIndex # The name of the index to use
+    make_index: true # If the index doesn't exist, create it
+    discover: true # If set to true, this module will adapt to any PageType it is given. For more information see the README.md
+    page_blacklist: # Allows you to blacklist certain Page Types, eg you wouldn't want to index an ErrorPage
+      - ErrorPage
