@@ -2,9 +2,9 @@
 
 class SearchifyPage_Controller extends Page_Controller
 {
-    private static $allowed_actions = [
-        'index',
-    ];
+    private static $allowed_actions = array(
+        'index'
+    );
 
     public function index(SS_HTTPRequest $r)
     {
@@ -43,17 +43,18 @@ class SearchifyPage_Controller extends Page_Controller
             $results = false;
         }
 
-        return $this->render([
-            'Title' => 'Search Results',
-            'Content' => $this->renderWith(
-                "SearchifyResultsHolder",
-                array(
-                    "QueryString" => Convert::xml2raw($r->requestVar('q')),
-                    "Matches" => $matches,
-                    "Results" => $results
+        return $this->render(
+            array(
+                'Title' => 'Search Results',
+                'Content' => $this->renderWith(
+                    "SearchifyResultsHolder",
+                    array(
+                        "QueryString" => Convert::xml2raw($r->requestVar('q')),
+                        "Matches" => $matches,
+                        "Results" => $results
+                    )
                 )
-            )
-        ]);
+            ));
     }
 
 
