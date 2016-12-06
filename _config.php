@@ -1,4 +1,2 @@
 <?php
-if (!getenv('TRAVIS')) {
-    Page_Controller::add_extension('SearchifyPage_ControllerExtension');
-}
+Page_Controller::add_extension('SearchifyPage_ControllerExtension');
