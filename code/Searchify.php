@@ -261,6 +261,7 @@ class Searchify extends Object
     }
 
     /**
+     * @todo
      * @param ArrayList $records
      */
     public function removePages(ArrayList $records)
@@ -331,6 +332,8 @@ class Searchify extends Object
 
     /**
      * Fetch the Searchify configuration
+     *
+     * @todo This accessor is incorrect, forClass('Searchify') wouldn't work though?
      * @return \ArrayData
      */
     public static function config()
