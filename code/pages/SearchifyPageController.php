@@ -1,5 +1,7 @@
 <?php
-class SearchifyPage_Controller extends Page_Controller {
+
+class SearchifyPage_Controller extends Page_Controller
+{
     private static $allowed_actions = [
         'index',
     ];
@@ -43,7 +45,7 @@ class SearchifyPage_Controller extends Page_Controller {
 
         return $this->render([
             'Title' => 'Search Results',
-            'Content'=> $this->renderWith(
+            'Content' => $this->renderWith(
                 "SearchifyResultsHolder",
                 array(
                     "QueryString" => Convert::xml2raw($r->requestVar('q')),
@@ -59,9 +61,9 @@ class SearchifyPage_Controller extends Page_Controller {
 
 class SearchifyPage_ControllerExtension extends Extension
 {
-    private static $allowed_actions = [
+    private static $allowed_actions = array(
         'SearchForm',
-    ];
+    );
 
     public function SearchForm()
     {
